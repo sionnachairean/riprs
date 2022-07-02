@@ -72,7 +72,7 @@ another could just as easily have been a template definition.
 
 TIPTOE THROUGH THE TEMPLATES
 ----------------------------
-There can be up to 36 different templates defined simultaneously. 
+There can be up to 36 different templates defined simultaneously.
 Each template number corresponds directly to a Button Group Number.
 Templates are identified by a single meganum 0-9 and A-Z, leaving 36
 distinctly separate groups.  To define a template, you use a
@@ -90,7 +90,7 @@ their own templates for the same group/template like this:
      Button #2:   [5:]This is button #2's template
      Button #3:   [5:]This is button #3's template
 
-Now, when these three buttons are received by the terminal, it 
+Now, when these three buttons are received by the terminal, it
 [the terminal] knows the Host Commands for each button (it memorized
 each of them).  Now, which of these three templates is the currently
 active one?  None of them!  A template definition doesn't become the
@@ -122,7 +122,7 @@ Host Command sub-block(s) like this:
      [5:]Template definition[]hello world^m
 
 If this button were clicked, then Group number 5 would have the
-template activated with the template text "Template definition". 
+template activated with the template text "Template definition".
 Then the Direct Host Command "hello world^m" would be transmitted to
 the BBS.  In this example, we see how a single host command can do
 multiple things - in this case, it defined a template in group #5 AND
@@ -155,7 +155,7 @@ active simultaneously.  What about each of their respective Host
 Commands?  They too are all processed when the buttons are
 individually clicked.  Now what about templates?  Since you can only
 have one template defined in a group at any given moment, how do
-check box buttons accomplish this multiple-template concept? 
+check box buttons accomplish this multiple-template concept?
 Whenever a check box button is clicked (or unclicked), the template
 for that group is re-calculated.  Any buttons in that group that have
 template definitions are scanned, and any check box buttons in that
@@ -257,7 +257,7 @@ host command.
 
 Let's illustrate this with an example.  Taking the check box example
 above which had a list of fruits as check box buttons, we can expand
-on this example to show how template embedding can be a useful tool. 
+on this example to show how template embedding can be a useful tool.
 In this example, we will build a menu to take someone's order for
 fruit.  Here is what the simple menu screen will look like:
 
@@ -291,13 +291,13 @@ buttons:
      Group #2 (check box button group)
      ---------------------------------
           APPLES:    [2:]APPLES^m
-          ORANGES:   [2:]ORANGES^m 
+          ORANGES:   [2:]ORANGES^m
           CHERRIES:  [2:]CHERRIES^m
-          GRAPES:    [2:]GRAPES^m  
-          PEARS:     [2:]PEARS^m   
+          GRAPES:    [2:]GRAPES^m
+          PEARS:     [2:]PEARS^m
           BANANNAS:  [2:]BANANNAS^m
           LEMONS:    [2:]LEMONS^m
-  
+
 Notice in the "Submit Order" button that there is a special code in
 the Direct Host Command "$?2$".  This is a special variation of a text
 variable.  This form of text variable is used only in Template
@@ -355,9 +355,9 @@ embedding, it is truncated to exactly 4096 bytes.
 
 TEMPLATE CHAINING
 -----------------
-Now, on to the second form of using templates, Template Chaining. 
+Now, on to the second form of using templates, Template Chaining.
 Template Chaining is another method of using templates.  Unlike
-Template Embedding though, template chaining is quite different. 
+Template Embedding though, template chaining is quite different.
 Rather than inserting the contents of a template into a host command,
 like in embedding, template chaining feeds data into a template and
 then takes the result and transmits that to the BBS.  In other words,
@@ -418,7 +418,7 @@ This would be the result of the three chaining operations:
      5 ... This has two insertion codes HERE and HERE
 
 We skipped over the "user clicked on this button" operations and went
-directly to the end results to make the example as clear as possible. 
+directly to the end results to make the example as clear as possible.
 There are three distinctly different situations in this example.  The
 first shows a regular template without an insertion code being used
 in a chaining operation.  As you can see, the data that was fed into
@@ -508,7 +508,7 @@ GETTING FANCY WITH TEMPLATES
 You've already learned about Template Embedding and Template
 Chaining.  These two methods of using templates do not need to be
 separate methods.  You can combine these methods if you wish.  This
-means that you can have embedded templates inside of template chains. 
+means that you can have embedded templates inside of template chains.
 This provides for utter flexibility in doing whatever you want.
 
 Here are a couple of examples of combinations:
@@ -547,7 +547,7 @@ Here are a couple of examples of combinations:
 
           [4:](hello)
           [5:]ANOTHER $?5$ EMBEDDED $?4$ VALUE
-     
+
           [3:]Here is a $?$ and $?5$
 
           [3]CHAINED COMMAND
@@ -564,7 +564,7 @@ Here are a couple of examples of combinations:
           Step #2:   Here is a CHAINED COMMAND and ANOTHER $?5$
                      EMBEDDED $?4$ VALUE
 
-          Step #3:   Here is a CHAINED COMMAND and ANOTHER ANOTHER 
+          Step #3:   Here is a CHAINED COMMAND and ANOTHER ANOTHER
                      $?5$ EMBEDDED $?4$ VALUE EMBEDDED (hello) VALUE
 
                <end of processing>
@@ -597,7 +597,7 @@ template chaining are going on while embedding is also being used.
 Example #3 is somewhat different though.  Why weren't the embedded
 template codes expanded at the lowest level of template #5?  If you
 look closely at template #5, it has an insertion code instructing the
-system to insert template #5 (itself) in the middle of the template. 
+system to insert template #5 (itself) in the middle of the template.
 This is legal, but only because an embedded template inside an
 embedded template cannot have any more embedding performed on it.  In
 other words, you are allowed up to two levels of embedded templates,
@@ -607,7 +607,7 @@ does, they will be treated as "raw" text instead of host command
 directives.
 
 Example #4 shows a more involved Template Chaining operation in which
-the same template is chained to more than once in a given operation. 
+the same template is chained to more than once in a given operation.
 This is allowable for extra flexibility, although in the real world
 will probably not be used much.
 
@@ -707,7 +707,7 @@ Here are some examples that better illustrate text variables:
 
 PROCESSING OF TEMPLATES
 -----------------------
-As stated previously, template definitions may contain text 
+As stated previously, template definitions may contain text
 variables, pick lists, control characters, and template insertion
 codes.  When do these special "directives" get processed?  The answer
 is when the template gets USED, not when it becomes ACTIVE!  To
@@ -754,13 +754,13 @@ button or template in an active Host Command situation.
 
 
 
-COMMAND BLOCKS - SEGMENTING A HOST COMMAND 
+COMMAND BLOCKS - SEGMENTING A HOST COMMAND
 ------------------------------------------
 Near the beginning of our discussion of templates we spoke about
 Direct Host Commands, Template Definitions and Template Execution.
 You have seen how to define templates with a template definition
 command like [3:]HELLO, and how to execute templates by either
-Chaining (eg, "[3]WORLD"), or by using Embedded Templates 
+Chaining (eg, "[3]WORLD"), or by using Embedded Templates
 (eg, "$?3$ WORLD").
 
 Now, remember that we spoke about how a single Host Command can be
@@ -830,7 +830,7 @@ could!  Look at the following set of three Radio Button definitions:
      Button #2:  [3:]Hello world[3:]This is Saturn
      Button #3:  [3:]Hello world[3:]This is Jupiter
 
-What happens if button #2 is clicked, thus activating that template? 
+What happens if button #2 is clicked, thus activating that template?
 What template command block is used to create the final, active
 template?  The answer is the last one!  The text that becomes the
 actual active template for template #3 would be this:
@@ -882,7 +882,7 @@ Control Characters are:
    ^C ... Break (sometimes)              ^[[H ... Home Key
    ^H ... Backspace                      ^[[K ... End Key
    ^[ ... Escape character               ^[[L ... Control Home
-   ^S ... Pause data transmission        
+   ^S ... Pause data transmission
    ^Q ... Resume data transmission
 
 Some hosts use the ^ (caret) for their own purposes.  In these
@@ -1036,10 +1036,10 @@ question:
 
                Choose one of the following:
 
-You may specify up to twenty entries for any one list.  In RIPterm 
-version 1.52 and earlier, the total length of a pick list was 256  
+You may specify up to twenty entries for any one list.  In RIPterm
+version 1.52 and earlier, the total length of a pick list was 256
 bytes.  In version 1.53 and later, this limit has been increased to
-1024 bytes.                                                        
+1024 bytes.
 
 Some characters have special significance in the RIPscrip language.
 These characters are ! (exclamation mark, or for you Unix-heads,
@@ -1086,7 +1086,7 @@ listed in the following chart:
                     |  S  | T S |   S |  T  |  R  |  P  |
                     |-----------------------------------|
                     |     |     |     |     |     |     |
-Button Host Commands|  Y  |  Y  |  Y  |  Y  |  Y  |  Y  | 
+Button Host Commands|  Y  |  Y  |  Y  |  Y  |  Y  |  Y  |
                     |     |     |     |     |     |     | Host
 Simple Mouse Fields |  N  |  Y  |  Y  |  Y  |  Y  |  Y  | Related
                     |     |     |     |     |     |     | Commands

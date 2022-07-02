@@ -230,7 +230,7 @@
               not allow Users to enter most control characters, users
               will be unable to begin RIPscrip sequences in the middle
               of a command line.  Only the Host should be able to do
-              this.  This prevents people from cluttering 
+              this.  This prevents people from cluttering
               teleconference, or other areas of a Host with spurious
               RIPscrip sequences.
 
@@ -1958,7 +1958,7 @@
                Symbol: RIP_BUTTON_STYLE
                 Level: 1
               Command: B
-            Arguments: wid:2 hgt:2 orient:2 flags:4 size:2 dfore:2 
+            Arguments: wid:2 hgt:2 orient:2 flags:4 size:2 dfore:2
                        dback:2 bright:2 dark:2 surface:2 grp_no:2 flags2:2
                        uline_col:2 corner_col:2 res:6
                Format: !|1B <wid> <hgt> <orient> <flags> <bevsize> <dfore>
@@ -1975,14 +1975,14 @@
 
      This RIPscrip command is probably one of the most complex in the
      entire protocol.  It defines how subsequent RIP_BUTTON commands will
-     be interpretted.  The purpose of this command is to define what a 
+     be interpretted.  The purpose of this command is to define what a
      Button is and how they operate.  Buttons can have many different
      configurations, flags, and styles.  With the diversity of modes that
      the Button can take on, complexity is a necessary evil.
 
-     This command does not actually do anything visibly on the screen. 
+     This command does not actually do anything visibly on the screen.
      Simply put, this creates an internal definition for the Button mode
-     which will be used with RIP_BUTTON commands after the definition is 
+     which will be used with RIP_BUTTON commands after the definition is
      created.
 
      Every Button can have an optional text label.  It can appear in
@@ -2004,11 +2004,11 @@
      The <hgt> and <wid> parameters represent the fixed height and width of
      the Button (applies only to Plain Buttons).  If both values are
      greater than zero, then this will represent the actual size of the
-     Button (its dimensions are not specified by the RIP_BUTTON command). 
+     Button (its dimensions are not specified by the RIP_BUTTON command).
      If both of these are set to zero, then the actual RIP_BUTTON command
      will specify the size of the particular Button (dynamic sizing).
 
-     The <bevsize> parameter is only used if the Bevel flag is specified. 
+     The <bevsize> parameter is only used if the Bevel flag is specified.
      When active, this parameter will determine how many pixels thick the
      bevel should be.  This may be any value greater or equal to zero.
 
@@ -2028,7 +2028,7 @@
      parameter (see below).
 
      The <bright>, <dark> and <surface> parameters are used with Plain
-     Buttons and with the Special Effects styles (see <flags> below). 
+     Buttons and with the Special Effects styles (see <flags> below).
      These colors represent the hilighted color, the shadowed color, and
      the regular surface color that is used in Special Effects.  Typical
      color combinations for these colors might be White, Dark-Gray and
@@ -2038,21 +2038,21 @@
 
      In addition to the special effects colors, are two additional colors
      that can be used, <uline_color> which is used for the color of the
-     underline (in the text label), and <corner_color> which is used to 
+     underline (in the text label), and <corner_color> which is used to
      display the colors of corners for things like the Bevel, Recess, etc.
 
      The <grp_no> parameter determines which Button Group subsequent
      RIP_BUTTON commands will be associated with.  Button Groups are used
-     to maintain groups of Buttons for things like Radio Buttons and/or 
+     to maintain groups of Buttons for things like Radio Buttons and/or
      Checkbox Buttons.  See the section entitled THE BUTTON COMMAND for
-     more information on these modes, and what Button Groups can offer. 
+     more information on these modes, and what Button Groups can offer.
      This value can range anywhere from 0-Z (i.e., 0-35).  You should not
      mix Checkbox and Radio buttons in the same group. -- unpredictable
      things may happen if you do.
 
      Some <flags> are mutually exclusive.  For example, you can only have
      one of the "Plain", "Icon", or "Clipboard" flags chosen at once.  To
-     better assist you in determining which values can be combined with 
+     better assist you in determining which values can be combined with
      each other, the right-most five columns in the next two tables explain
      if the specific flag can be used under a specific condition.  For
      example, you cannot choose the "Hot Icon" flag if you are dealing with
@@ -2119,7 +2119,7 @@
 
      This command physically creates a new Button using the previously
      described RIP_BUTTON_STYLE command.  You may have at most 128
-     different Mouse Buttons (you may have any number of non-Mouse 
+     different Mouse Buttons (you may have any number of non-Mouse
      Buttons).
 
      The <x0> and <y0> parameters for this command designate the upper-left
@@ -2162,7 +2162,7 @@
        1      Draw button as already selected
        2      Button is "default" when <ENTER> is tapped
 
-     Using a flag of 1 means that the Button is already "selected".  By 
+     Using a flag of 1 means that the Button is already "selected".  By
      selected, we mean that it is already clicked and should be initially
      drawn as clicked.  This is typically used for Radio Buttons and/or
      Check Boxes.  This only affects the image.  The Host Command WILL
@@ -2172,7 +2172,7 @@
 
      The <text> parameter for this command is somewhat different than those
      found in previously described RIPscrip commands.  All other RIPscrip
-     commands only have one text parameter.  This command requires 
+     commands only have one text parameter.  This command requires
      anywhere from 0-3 text parameters.  The way RIPscrip accomplishes this
      is by separating each block in the <text> parameter with the
      delimiter "<>".  This text parameter delimiter is not needed before
@@ -2207,7 +2207,7 @@
      section entitled HOST COMMANDS in this Manual for additional
      information on these Host Command features.
 
-     Not all of the blocks in the <text> parameter need to be specified. 
+     Not all of the blocks in the <text> parameter need to be specified.
      Here are examples of the valid combinations of text blocks:
 
      PARAMETER EXAMPLE        DESCRIPTION OF THE TEXT PARAMETER
@@ -2316,11 +2316,11 @@
      (:).  The colon indicates that the variable identifier field is
      completed and that the remainder of the text parameter is to contain
      the question and/or the default response (if any).  If no question or
-     default response is provided, the text parameter would read 
+     default response is provided, the text parameter would read
      "TEXT_VAR,width:" with no additional data.
 
      The question-text is specified by a question mark (?) followed by the
-     actual text of the question, followed by a trailing question mark. 
+     actual text of the question, followed by a trailing question mark.
      The basic format of the question segment is as follows:
 
 
@@ -2418,8 +2418,8 @@
 
         ^m  ......................... Send a carriage return to the BBS
                                       right now
-        My name is $FULL_NAME$^m  ... Send the text "My name is 
-                                      <insert-name-here>" followed by a 
+        My name is $FULL_NAME$^m  ... Send the text "My name is
+                                      <insert-name-here>" followed by a
                                       carriage return to the BBS.  The
                                       <insert-name-here> will be replaced
                                       with whatever the the variable
@@ -2436,7 +2436,7 @@
 
 
      ---------------------------------------------------------------------
-     Copy screen region up/down 
+     Copy screen region up/down
      ---------------------------------------------------------------------
                Symbol: RIP_COPY_REGION
                 Level: 1
@@ -2471,7 +2471,7 @@
 
      The original image area is left on the screen (is not cleared).  So
      if you wish to perform some kind of scrolling effect, you will have
-     to clear the original area yourself.  
+     to clear the original area yourself.
 
      If the destination region would place the image partially off-screen,
      then the entire command is ignored!
@@ -2574,16 +2574,16 @@
            03       Queries extended return information.  If the file
                     does not exist, a "0" is returned follwed by a
                     carriage return.  If it does exist, the text
-                    returned to the Host is in the format: 
+                    returned to the Host is in the format:
                     1.size.date.time <cr>.  An example of a return
                     statement could be "1.20345.01/02/93.03:04:30 <cr>"
            04       Queries extended return information.  If the file
                     does not exist, a "0" is returned follwed by a
                     carriage return.  If it does exist, the text
-                    returned to the Host is in the format: 
+                    returned to the Host is in the format:
                     1.file.size.date.time <cr>.  An example of a return
-                    statement could be 
-                    
+                    statement could be
+
                         "1.MYFILE.RIP.20345.01/02/93.03:04:30 <cr>".
 
                     Note the file extension adds another period into the
@@ -2611,7 +2611,7 @@
 
       This command is used to auto-initiate any desired File Transfer
       Protocol.  The <filename> parameter is optional, and if omitted
-      must be replaced with a "<>" parameter (end of string).  
+      must be replaced with a "<>" parameter (end of string).
 
       The <proto> parameter is the file transfer protocol specifier.
       Possible values, and the protocols they refer to are:
@@ -2660,7 +2660,7 @@
      are "stored" and are not played back in COMPOSITE DYNAMIC mode.  In
      ACTIVE DYNAMIC mode, they are stored and played back simultaneously.
 
-     NOTE: This command must be terminated with a carriage return.  A 
+     NOTE: This command must be terminated with a carriage return.  A
            vertical bar (|) command delimiter cannot be used to separate
            this command from a subsequent one on the same line.  In other
            words, this command must be the last command on a line of text.
@@ -3157,7 +3157,7 @@
      ----------------------------------------------------------
      This Active Text Variable is much like the BEEP variable,
      except that the sound produced is different.  It produces
-     a sound more akin to a "barrier" sound; something that 
+     a sound more akin to a "barrier" sound; something that
      sounds like you're running into a wall or something to that
      effect.
 
@@ -3167,7 +3167,7 @@
      $MUSIC$ ... Makes a musical (cheerful) sound
      --------------------------------------------
      This Active Text Variable also produces an Audio result.  The
-     sound that is generated is a cheerful sound, representing 
+     sound that is generated is a cheerful sound, representing
      some kind of success.  The sound is exactly the same as the
      Sound you would hear when you receive a successful download,
      or when you achieve a connection when dialing the modem in
@@ -3238,14 +3238,14 @@
 
       $COFF$ ... Disable the text cursor
       ----------------------------------
-      This command will physically shut off the ASCII text cursor that 
+      This command will physically shut off the ASCII text cursor that
       is normally seen in the text window.  This is automatically reset
       whenever a $CON$ command (Cursor ON) or a Reset Windows command
       is received.
 
           Example:  $COFF$ = <nil>
-    
-    
+
+
       $CON$ ... Re-displays the text cursor
       -------------------------------------
       This command will physically turn ON the ASCII text cursor.  This
@@ -3253,19 +3253,19 @@
       text cursor.
 
           Example:  $CON$ = <nil>
-    
-    
+
+
       $STW$ ... Save text window information
       --------------------------------------
-      This command will physically store all of the text window 
+      This command will physically store all of the text window
       settings.  The window's X/Y dimensions are preserved, as is the
       current cursor location, ANSI attributes, cursor ON/OFF status
       and the vertical scrolling margins.  Even the current System Font
       will be saved (if necessary).
-    
+
           Example:  $STW$ = <nil>
 
-    
+
       $RTW$ ... Restore text window information
       -----------------------------------------
       This command will restore the text window to whatever settings
@@ -3274,7 +3274,7 @@
       information will be restored (including the System Font setting).
 
       NOTE: The textual contents of the window will not be restored.
-    
+
           Example:  $RTW$ = <nil>
 
 
@@ -3283,7 +3283,7 @@
       This command will save the Clipboard to disk for later retrieval
       by a subsequent Query or Host Command.  If the clipboard does
       not exist, then the temporary file is deleted automatically to
-      indicate to the Restore Clip Board that there shouldn't be a 
+      indicate to the Restore Clip Board that there shouldn't be a
       clipboard active.
 
           Example:  $SCB$ = <nil>
@@ -3356,7 +3356,7 @@
       return the keyboard to normal operation.
 
           Example:  $DWAYOFF$ = <nil>
-    
+
 
       $SAVE$ ... Save graphics screen
       -------------------------------
@@ -3386,7 +3386,7 @@
       disk and restore the graphics as they were originally saved with
       the $SAVE$ command.  Only the graphics screen is restored, not
       the Clipboard, Mouse Fields or Text Window settings.  To restore
-      the entire context of the graphics environment, issue the 
+      the entire context of the graphics environment, issue the
       following text variables:
 
               $RESTORE$ $STW$ $SCB$ $SMF$
@@ -3448,10 +3448,10 @@
       file in that directory, it will check the ICONS\ directory.
 
 
-    
-    
-    
-    
+
+
+
+
      =====================================================================
      ==                           POP-UP LISTS                          ==
      =====================================================================
@@ -3476,7 +3476,7 @@
      By default, if you hit <ESCAPE> instead of picking an entry in the
      list, then nothing will be inserted into the text of your Command.
      You can indicate that the user MUST pick an entry by puttin an
-     asterisk (*) at the beginning of the question.  For example, 
+     asterisk (*) at the beginning of the question.  For example,
      ((*Send Mail to?::Sysop,Joe)).  This would make it so that the User
      MUST choose either SYSOP or JOE.
 
@@ -3507,14 +3507,14 @@
               probably not what you would want to do.  Bottom line,
               only use Hotkey features on List Entries where you
               specify a Description!
-   
+
               If you do not specify a Question, then the List will
-              ask you: 
-          
-       
+              ask you:
+
+
                   "Choose one of the following:"
-   
-   
+
+
               You may specify up to twenty List Entries for any
               one list.
 
@@ -3544,7 +3544,7 @@
      cumbersome method is "history" with Command Templates.
 
      Command Templates are probably best described with a brief example.
-     Let's say that you have a menu screen for reading and writing 
+     Let's say that you have a menu screen for reading and writing
      messages in your public message forums.  On this menu, you can have
      buttons for each forum on your system, and at the same time have
      buttons for READ, WRITE, ERASE, MODIFY, etc.  Now, how can you make
@@ -3585,7 +3585,7 @@
 
         You are allowed up to 36 different templates, each of which
         can be different and can all be active at the same time.  Each
-        of the 36 templates correspond to a Button Group (see the 
+        of the 36 templates correspond to a Button Group (see the
         Button Command).  Templates can be defined and/or activated
         in any order.  In other words, you can have a template #1, 5
         13 and 32, but none of the others defined.  Templates remain
@@ -3608,7 +3608,7 @@
         Valid template numbers are 0-9, A-Z.  So, with this in mind,
         all of the template definitions are valid:
 
-          
+
                [0:]S FORUM1 $?$^m
                [9:]S FORUM2 $?$^m
                [G:]S FORUM3 $?$^m
@@ -3658,7 +3658,7 @@
         To chain one template into another, follow a format similar
         to the following:
 
-         
+
                [0372]HELLO
 
 
@@ -3781,7 +3781,7 @@
             of the above menu might be as follows:
 
 
-                 Protocols:                Download which file?     
+                 Protocols:                Download which file?
                     __                        __
                    |\/|                      |  |
                    |/\| X-Modem              |  | File #1
@@ -3789,11 +3789,11 @@
                     __                        __
                    |  |                      |\/|
                    |  | Y-Modem              |/\| File #2
-                    --                        -- 
+                    --                        --
                     __                        __
                    |  |                      |  |
                    |  | Y-Modem (batch)      |  | File #3
-                    --                        --  
+                    --                        --
                     __
                    |  |
                    |  | Z-Modem         _______________________
@@ -3813,7 +3813,7 @@
         In the preceding example #2, a group of Radio Buttons was used
         on the right side of the screen to determine which file should
         be downloaded.  In that example, there was no ability to specify
-        an arbitrary filename to download.  You were only allowed to 
+        an arbitrary filename to download.  You were only allowed to
         download one of three given files.  What would be perfect, would
         be to have the ability to pop-up a question to the user asking
         what filename they wanted.  The solution is easy, insert a
@@ -3834,7 +3834,7 @@
 
         The screen might appear something like this:
 
-                 Protocols:                Download which file?     
+                 Protocols:                Download which file?
                     __                        __
                    |\/|                      |  |
                    |/\| X-Modem              |  | File #1
@@ -3842,21 +3842,21 @@
                     __                        __
                    |  |                      |\/|
                    |  | Y-Modem              |/\| File #2
-                    --                        -- 
+                    --                        --
                     __                        __
                    |  |                      |  |
                    |  | Y-Modem (batch)      |  | File #3
-                    --                        --  
+                    --                        --
                     __                        __
                    |  |                      |  |
                    |  | Z-Modem              |  | Enter Filename
-                    --                        -- 
-                                       
-                               _______________________         
+                    --                        --
+
+                               _______________________
                               |                       |
                               |  BEGIN DOWNLOAD NOW!  |
                               |_______________________|
-        
+
 
         Note the addition of the "Enter Filename" button.  If the user
         clicked on that button, it would first try to replace $FILENAME$
@@ -3864,7 +3864,7 @@
         not exist, and will then pop-up the following question on the
         screen:
 
-                       _____________________________ 
+                       _____________________________
                       |                             |
                       |       Enter "FILENAME"      |
                       |   _______________________   |
@@ -3877,11 +3877,11 @@
         If the user typed in "DEMOFILE.TXT", then that filename is
         inserted where $FILENAME$ was located, then it is piped through
         template #0, resulting in:
-        
-        
+
+
                     D DEMOFILE.TXT
-                   
-                
+
+
         The result of that is then stuffed through Template #1 which
         gives the following return string sent to the BBS:
 
@@ -3930,20 +3930,20 @@
         store these values "permanently" in a disk-file, or they may
         be active only during the current online session, or they
         may be defined as "temporary" where they are not stored for
-        more than a brief moment.  
+        more than a brief moment.
 
         Note, this ability is configurable so that information exchange
         can be either interactive, or automatic.  Automatic transfer
         of information does NOT prompt the user with the information
         unless the variable has not yet been defined.  If it has not
         been defined, a pop-up question will appear asking the user
-        a particular question, thus defining the text variable.  
-        
+        a particular question, thus defining the text variable.
+
         If the exchange is "interactive", the data is displayed in a
         pop-up editor box, asking you if the information is correct.
         If it is, simply tap <ENTER> and the retrieved information is
         sent to the BBS for you.  If it is not correct, or it has not
-        been created yet, just type it in and tap <ENTER> and it will 
+        been created yet, just type it in and tap <ENTER> and it will
         be saved automatically, and sent to the BBS all at once.
 
 
@@ -3974,7 +3974,7 @@
         The RIPscrip command "Define Text Variable" is by definition,
         an interactive command with the User.  The RIPscrip command
         will attempt to define a "User Variable".  This Variable is
-        some piece of information that the System Operator deems 
+        some piece of information that the System Operator deems
         important.  You may specify a question, a default response,
         and how many characters long the response may be.
 
@@ -4001,7 +4001,7 @@
         Now that you know how to define information on the terminal,
         you need to know the last method of asking the terminal
         about text variables.  This feature is called "data query".
-        
+
         Data Query is a generic "query" command that can ask the
         terminal one or more questions, and tell it how to transmit
         the information back to the host.  This command is for use
@@ -4019,7 +4019,7 @@
        so with the following query (remember, the query also tells
        the terminal HOW to send the data back to the BBS):
 
-          
+
           $FULL_NAME$^m$COMPANY$^m$STREET_ADDR$^m$CITY$, $STATE$ $ZIP^m
 
 
@@ -4038,6 +4038,3 @@
        If a text variable is queried, and it has not been defined yet,
        a pop-up question will appear asking the user to fill-in the
        information.
-
-
-
