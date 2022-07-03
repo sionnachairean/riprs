@@ -1,57 +1,17 @@
+use crate::structs::*;
 use nom::{
-    bytes::complete::take_while_m_n,
+    bytes::streaming::take_while_m_n,
     character::{
         complete::{char, one_of},
         is_digit,
     },
-    combinator::{map_res, verify},
+    combinator::{fail, map_res},
     multi::{fill, many1},
     sequence::{preceded, tuple},
     IResult,
 };
 
 const COMMAND_CHARS: &str = " !\"#$%&'()*+,-./:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~";
-
-#[derive(Debug)]
-pub enum Command {
-    TextWindow {
-        x0: u32,
-        y0: u32,
-        x1: u32,
-        y1: u32,
-        wrap: bool,
-        size: u32,
-    },
-    Viewport {
-        x0: u32,
-        y0: u32,
-        x1: u32,
-        y1: u32,
-    },
-    ResetWindows,
-    EraseWindow,
-    EraseView,
-    Gotoxy {
-        x: u32,
-        y: u32,
-    },
-    Home,
-    EraseEol,
-    Color {
-        color: u32,
-    },
-    SetPalette {
-        c: [u32; 16],
-    },
-    OnePalette {
-        color: u32,
-        value: u32,
-    },
-    WriteMode {
-        mode: u32,
-    },
-    Unknown,
-}
 
 fn from_bool(input: &str) -> Result<bool, std::num::ParseIntError> {
     u32::from_str_radix(input, 2).and_then(|n| Ok(n != 0))
@@ -85,16 +45,31 @@ fn text_size(input: &str) -> IResult<&str, u32> {
     map_res(take_while_m_n(1, 1, is_text_size), from_meganum)(input)
 }
 
-fn palette_color(input: &str) -> IResult<&str, u32> {
-    verify(meganum2, |n| *n < 16)(input)
+fn palette_color(input: &str) -> IResult<&str, PaletteColor> {
+    let (rest, color_index) = meganum2(input)?;
+    if let Ok(color) = PaletteColor::try_from(color_index as u8) {
+        Ok((rest, color))
+    } else {
+        fail(input)
+    }
 }
 
-fn master_color(input: &str) -> IResult<&str, u32> {
-    verify(meganum2, |n| *n < 64)(input)
+fn ega_color(input: &str) -> IResult<&str, EGAColor> {
+    let (rest, color_index) = meganum2(input)?;
+    if let Ok(color) = EGAColor::try_from(color_index as u8) {
+        Ok((rest, color))
+    } else {
+        fail(input)
+    }
 }
 
-fn write_mode(input: &str) -> IResult<&str, u32> {
-    verify(meganum2, |n| *n < 2)(input)
+fn write_mode(input: &str) -> IResult<&str, WriteMode> {
+    let (rest, mode_index) = meganum2(input)?;
+    if let Ok(mode) = WriteMode::try_from(mode_index) {
+        Ok((rest, mode))
+    } else {
+        fail(input)
+    }
 }
 
 pub fn ripscrip(input: &str) -> IResult<&str, Vec<Command>> {
@@ -142,10 +117,7 @@ fn rip_text_window(input: &str) -> IResult<&str, Command> {
     Ok((
         rest,
         Command::TextWindow {
-            x0,
-            y0,
-            x1,
-            y1,
+            corners: (XY { x: x0, y: y0 }, XY { x: x1, y: y1 }),
             wrap,
             size,
         },
@@ -155,7 +127,12 @@ fn rip_text_window(input: &str) -> IResult<&str, Command> {
 fn rip_viewport(input: &str) -> IResult<&str, Command> {
     let (rest, (x0, y0, x1, y1)) =
         tuple((meganum2, meganum2, meganum2, meganum2))(input)?;
-    Ok((rest, Command::Viewport { x0, y0, x1, y1 }))
+    Ok((
+        rest,
+        Command::Viewport {
+            corners: (XY { x: x0, y: y0 }, XY { x: x1, y: y1 }),
+        },
+    ))
 }
 
 fn rip_reset_windows(input: &str) -> IResult<&str, Command> {
@@ -172,7 +149,7 @@ fn rip_erase_view(input: &str) -> IResult<&str, Command> {
 
 fn rip_gotoxy(input: &str) -> IResult<&str, Command> {
     let (rest, (x, y)) = tuple((meganum2, meganum2))(input)?;
-    Ok((rest, Command::Gotoxy { x, y }))
+    Ok((rest, Command::Gotoxy(XY { x, y })))
 }
 
 fn rip_home(input: &str) -> IResult<&str, Command> {
@@ -189,13 +166,13 @@ fn rip_color(input: &str) -> IResult<&str, Command> {
 }
 
 fn rip_set_palette(input: &str) -> IResult<&str, Command> {
-    let mut c = [0; 16];
-    let (rest, ()) = fill(master_color, &mut c)(input)?;
+    let mut c = [EGAColor::new(); 16];
+    let (rest, ()) = fill(ega_color, &mut c)(input)?;
     Ok((rest, Command::SetPalette { c }))
 }
 
 fn rip_one_palette(input: &str) -> IResult<&str, Command> {
-    let (rest, (color, value)) = tuple((palette_color, master_color))(input)?;
+    let (rest, (color, value)) = tuple((palette_color, ega_color))(input)?;
     Ok((rest, Command::OnePalette { color, value }))
 }
 
