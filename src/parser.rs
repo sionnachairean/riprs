@@ -37,12 +37,13 @@ fn meganum2(input: &str) -> IResult<&str, u32> {
     map_res(take_while_m_n(2, 2, is_meganum_digit), from_meganum)(input)
 }
 
-fn is_text_size(c: char) -> bool {
-    "01234".contains(c)
-}
-
-fn text_size(input: &str) -> IResult<&str, u32> {
-    map_res(take_while_m_n(1, 1, is_text_size), from_meganum)(input)
+fn font_size(input: &str) -> IResult<&str, FontSize> {
+    let (rest, size_char) = one_of("01234")(input)?;
+    if let Ok(size) = FontSize::try_from(size_char.to_digit(36).unwrap()) {
+        Ok((rest, size))
+    } else {
+        fail(input)
+    }
 }
 
 fn palette_color(input: &str) -> IResult<&str, PaletteColor> {
@@ -112,7 +113,7 @@ fn unknown(_input: &str) -> IResult<&str, Command> {
 
 fn rip_text_window(input: &str) -> IResult<&str, Command> {
     let (rest, (x0, y0, x1, y1, wrap, size)) = tuple((
-        meganum2, meganum2, meganum2, meganum2, bool, text_size,
+        meganum2, meganum2, meganum2, meganum2, bool, font_size,
     ))(input)?;
     Ok((
         rest,

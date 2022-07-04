@@ -5,7 +5,7 @@ pub enum Command {
     TextWindow {
         corners: (XY, XY),
         wrap: bool,
-        size: u32,
+        size: FontSize,
     },
     Viewport {
         corners: (XY, XY),
@@ -219,6 +219,20 @@ pub enum Command {
 pub struct XY {
     pub x: u32,
     pub y: u32,
+}
+
+#[derive(Debug)]
+pub struct FontSize(u32);
+
+impl TryFrom<u32> for FontSize {
+    type Error = &'static str;
+
+    fn try_from(value: u32) -> Result<Self, Self::Error> {
+        match value {
+            0..=4 => Ok(FontSize(value)),
+            _ => Err("Font size must be in range 0..=4"),
+        }
+    }
 }
 
 #[derive(Debug)]
