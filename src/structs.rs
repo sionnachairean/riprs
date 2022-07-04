@@ -99,15 +99,15 @@ pub enum Command {
     },
     Polygon {
         npoints: u32,
-        points: Vec<(u32, u32)>,
+        points: Vec<XY>,
     },
     FillPolygon {
         npoints: u32,
-        points: Vec<(u32, u32)>,
+        points: Vec<XY>,
     },
     Polyline {
         npoints: u32,
-        points: Vec<(u32, u32)>,
+        points: Vec<XY>,
     },
     Fill {
         start: XY,
@@ -160,8 +160,7 @@ pub enum Command {
     },
     ButtonStyle {
         // absolute marvel of over-featuring
-        wid: u32,
-        hgt: u32,
+        dimensions: XY,
         orient: LabelOrientation,
         flags: FlagSet<ButtonStyleFlags>,
         bevsize: u32,
